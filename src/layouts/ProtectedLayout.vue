@@ -3,7 +3,7 @@
     <Header :color="'red accent-3'" :isTransparent="isHeaderTransparent" :navItems="navItems" />
     <v-content>
       <v-container fluid class="py-5 px-7">
-        <slot></slot>
+        <router-view></router-view>
       </v-container>
     </v-content>
     <Footer />

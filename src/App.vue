@@ -1,16 +1,19 @@
 <template>
-  <div id="app">
-    <component v-bind:is="layout">
-      <router-view></router-view>
-    </component>
-  </div>
+  <component v-bind:is="layout" />
 </template>
 <script>
+import { DEFAULT_LAYOUT } from './constants';
+
 export default {
   computed: {
+    /**
+     * layout
+     * @description get the current route's layout
+     * @returns {String}
+     */
     layout() {
       const layout = this.$route.meta.layout;
-      return `${layout || 'auth'}-layout`;
+      return `${layout || DEFAULT_LAYOUT}-layout`;
     }
   },
   mounted() {}

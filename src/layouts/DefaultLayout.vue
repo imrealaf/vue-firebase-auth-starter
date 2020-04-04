@@ -1,7 +1,7 @@
 <template>
   <v-app dark v-show="loaded">
     <v-content>
-      <slot></slot>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
