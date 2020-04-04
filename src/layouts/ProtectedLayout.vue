@@ -14,13 +14,13 @@
 import { mapState, mapMutations, mapActions } from 'vuex';
 import Header from '@/components/Header/Header.vue';
 import Footer from '@/components/Footer/Footer.vue';
-import navigation from '../config/navigation';
+import { protectedNav } from '@/data/navigation';
 
 export default {
   components: { Header, Footer },
   data() {
     return {
-      navItems: navigation || []
+      navItems: protectedNav || []
     };
   },
   computed: {

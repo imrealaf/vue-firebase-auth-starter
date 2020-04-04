@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors';
 
 export default {
-  customVariables: ['~/assets/variables.scss'],
+  customVariables: ['~/styles/variables.scss'],
   theme: {
     dark: true,
     themes: {

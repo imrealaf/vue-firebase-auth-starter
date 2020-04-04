@@ -1,6 +1,7 @@
 import { mapState, mapActions } from 'vuex';
-import { APP_TITLE } from '../../constants';
 import ClickOutside from 'vue-click-outside';
+
+import { APP_TITLE, LOGGED_OUT_ROUTE } from '@/constants';
 
 export default {
   directives: {
@@ -170,7 +171,9 @@ export default {
    */
   watch: {
     user() {
-      this.$router.push('/');
+      this.$router.push({
+        name: LOGGED_OUT_ROUTE
+      });
     },
     isMobileMenu() {
       if (this.isMobileMenu && this.menuIsMini) {

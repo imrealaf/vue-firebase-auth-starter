@@ -1,3 +1,5 @@
+import { STORAGE_KEY_NAME } from './constants';
+
 export const getMenuData = () => {
   const data = sessionStorage.getItem('my_app_menu');
   if (data) {
@@ -6,18 +8,8 @@ export const getMenuData = () => {
 };
 
 export const getUserData = () => {
-  const data = sessionStorage.getItem('my_app');
+  const data = sessionStorage.getItem(STORAGE_KEY_NAME);
   if (data) {
     return JSON.parse(data).user;
-  }
-};
-
-export const setMenuData = (data) => {
-  if (data) {
-    const merged = {
-      ...getMenuData(),
-      ...data
-    };
-    sessionStorage.setItem('my_app_menu', JSON.stringify(merged));
   }
 };

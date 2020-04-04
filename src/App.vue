@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <component v-bind:is="layout">
-      <transition name="page">
-        <router-view></router-view>
-      </transition>
+      <router-view></router-view>
     </component>
   </div>
 </template>

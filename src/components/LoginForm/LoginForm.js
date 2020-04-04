@@ -2,6 +2,8 @@ import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
 import { mapState } from 'vuex';
 
+import { LOGGED_IN_ROUTE } from '@/constants';
+
 export default {
   /**
    * -------------------------------------------------------------------
@@ -66,8 +68,10 @@ export default {
      * user
      * @description watch user property to handle redirect on auth change if firebase is slow
      */
-    user(to, from) {
-      this.$router.push('/admin/dashboard');
+    user() {
+      this.$router.push({
+        name: LOGGED_IN_ROUTE
+      });
     }
   },
 

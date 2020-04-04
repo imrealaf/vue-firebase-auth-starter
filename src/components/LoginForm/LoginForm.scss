@@ -1,4 +1,4 @@
-@import '../../assets/breakpoints.scss';
+@import '@/styles/breakpoints.scss';
 
 .v-card {
   @include sm-up() {

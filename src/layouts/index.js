@@ -1,7 +1,9 @@
 import Vue from 'vue';
 
 import AuthLayout from './AuthLayout';
-import AdminLayout from './AdminLayout';
+import ProtectedLayout from './ProtectedLayout';
+import DefaultLayout from './DefaultLayout';
 
 Vue.component('auth-layout', AuthLayout);
-Vue.component('admin-layout', AdminLayout);
+Vue.component('protected-layout', ProtectedLayout);
+Vue.component('default-layout', DefaultLayout);

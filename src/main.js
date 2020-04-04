@@ -10,7 +10,7 @@ import store from './store';
 import { auth } from './services/firebase';
 
 import 'vuetify/dist/vuetify.min.css';
-import './assets/main.scss';
+import './styles/main.scss';
 import './layouts';
 
 Vue.config.productionTip = false;
@@ -25,6 +25,8 @@ auth.onAuthStateChanged((user) => {
   }
 
   store.dispatch('user/fetchUser', user);
+
+  console.log(user);
 
   new Vue({
     router,
