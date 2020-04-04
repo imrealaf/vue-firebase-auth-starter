@@ -4,6 +4,11 @@ import ClickOutside from 'vue-click-outside';
 import { APP_TITLE, LOGGED_OUT_ROUTE } from '@/constants';
 
 export default {
+  /**
+   * -------------------------------------------------------------------
+   *  Directives
+   * -------------------------------------------------------------------
+   */
   directives: {
     ClickOutside
   },

@@ -8,9 +8,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import config from '../config/vuetify';
+
+import config from '@/config/vuetify';
 
 export default {
+  /**
+   * -------------------------------------------------------------------
+   *  Computed
+   * -------------------------------------------------------------------
+   */
   computed: {
     ...mapState(['loaded']),
     bg() {

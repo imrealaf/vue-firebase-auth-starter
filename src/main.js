@@ -26,8 +26,6 @@ auth.onAuthStateChanged((user) => {
 
   store.dispatch('user/fetchUser', user);
 
-  console.log(user);
-
   new Vue({
     router,
     store,

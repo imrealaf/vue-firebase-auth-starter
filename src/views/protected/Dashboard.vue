@@ -1,5 +1,5 @@
 <template>
-  <v-layout v-if="user" column>
+  <v-layout column>
     <v-flex>
       <h1>Home</h1>
       <p>{{user.email}}</p>
