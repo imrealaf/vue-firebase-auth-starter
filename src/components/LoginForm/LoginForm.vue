@@ -19,8 +19,25 @@
           :error-messages="passwordRules"
         ></v-text-field>
       </v-card-text>
-      <v-card-actions class="pa-7 pt-0 justify-center">
-        <v-btn type="submit" color="accent" class="px-7">Login</v-btn>
+      <v-card-actions v-show="!email.length" class="social-actions pa-7 pt-0">
+        <span>OR CONNECT WITH</span>
+        <v-flex class="flex justify-center mt-3">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon class="btn-facebook" v-on="on">mdi-facebook</v-icon>
+            </template>
+            <span>Facebook</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon class="btn-google" v-on="on">mdi-google</v-icon>
+            </template>
+            <span>Google</span>
+          </v-tooltip>
+        </v-flex>
+      </v-card-actions>
+      <v-card-actions v-show="email.length" class="email-actions pa-7 pt-0 justify-center">
+        <v-btn type="submit" color="accent" class="btn-pill px-7">Login</v-btn>
       </v-card-actions>
     </v-form>
   </v-card>

@@ -29,7 +29,12 @@
         <v-icon>mdi-{{ `chevron-${menuIsMini ? 'right' : 'left'}` }}</v-icon>
         {{ `${menuIsMini ? 'Expand' : 'Collapse'}` }} Menu
       </v-btn>
-      <v-toolbar-title v-text="title" class="header-logo" />
+      <v-flex class="header-logo title align-center mb-5">
+        <v-icon large>mdi-firebase</v-icon>
+        <span class="ml-2">
+          <strong>Vue Firebase Auth</strong>
+        </span>
+      </v-flex>
 
       <v-spacer />
 
