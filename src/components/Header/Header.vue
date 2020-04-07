@@ -48,7 +48,7 @@
                 height="40"
                 width="40"
               />
-              {{user.displayName || user.email.split('@')[0]}}
+              {{user.displayName}}
               <v-icon>mdi-menu-down</v-icon>
             </v-btn>
           </template>

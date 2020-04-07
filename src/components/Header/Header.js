@@ -1,4 +1,4 @@
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import ClickOutside from 'vue-click-outside';
 
 import { APP_TITLE, LOGGED_OUT_ROUTE } from '@/constants';
@@ -95,7 +95,8 @@ export default {
    */
   computed: {
     ...mapState({
-      user: (state) => state.user.data
+      user: (state) => state.user.data,
+      profile: (state) => state.user.profile
     }),
 
     /**

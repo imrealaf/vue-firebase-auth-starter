@@ -6,5 +6,14 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from 'vuex';
+
+export default {
+  methods: {
+    ...mapActions({
+      createUser: 'user/createUser'
+    })
+  },
+  mounted() {}
+};
 </script>

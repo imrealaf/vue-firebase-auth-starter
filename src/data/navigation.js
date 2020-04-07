@@ -1,4 +1,4 @@
-import { PATH_DASHBOARD, PATH_ABOUT } from '@/router/routes';
+import { PATH_DASHBOARD, PATH_ADMIN_ARTICLES } from '@/router/routes';
 
 export const protectedNav = [
   {
@@ -7,8 +7,8 @@ export const protectedNav = [
     to: PATH_DASHBOARD
   },
   {
-    icon: 'mdi-chart-bubble',
-    title: 'About',
-    to: PATH_ABOUT
+    icon: 'mdi-newspaper',
+    title: 'Articles',
+    to: PATH_ADMIN_ARTICLES
   }
 ];

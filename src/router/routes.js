@@ -1,12 +1,13 @@
 import { Login, Home } from '../views';
-import { Dashboard, About } from '../views/protected';
+import { Dashboard, About, Articles } from '../views/protected';
 
 /**
  *  Route paths
  */
 export const PATH_HOME = '/';
 export const PATH_LOGIN = '/login';
-export const PATH_DASHBOARD = '/dashboard';
+export const PATH_DASHBOARD = '/u/dashboard';
+export const PATH_ADMIN_ARTICLES = '/u/articles';
 export const PATH_ABOUT = '/about';
 
 /**
@@ -32,9 +33,9 @@ export const routes = [
     meta: { layout: 'protected', requiresAuth: true }
   },
   {
-    path: PATH_ABOUT,
-    name: 'about',
-    component: About,
+    path: PATH_ADMIN_ARTICLES,
+    name: 'admin-articles',
+    component: Articles,
     meta: { layout: 'protected', requiresAuth: true }
   }
 ];

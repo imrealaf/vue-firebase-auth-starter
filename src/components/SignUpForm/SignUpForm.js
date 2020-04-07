@@ -1,8 +1,7 @@
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
-import { auth } from '@/services/firebase';
 import { LOGGED_IN_ROUTE } from '@/constants';
 
 export default {
@@ -32,11 +31,15 @@ export default {
    * -------------------------------------------------------------------
    */
   methods: {
+    ...mapActions({
+      loginWithEmail: 'user/loginWithEmail'
+    }),
+
     /**
-     * loginWithEmail
+     * login
      * @description log user in by dispatching login action
      */
-    async loginWithEmail() {
+    async submitLogin() {
       this.$v.$touch();
 
       // If form is valid ..
@@ -45,7 +48,10 @@ export default {
 
         // Success ..
         try {
-          await auth.signInWithEmailAndPassword(this.email, this.password);
+          await this.loginWithEmail({
+            email: this.email,
+            password: this.password
+          });
 
           // Failed ..
         } catch (error) {

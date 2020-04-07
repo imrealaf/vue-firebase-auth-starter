@@ -1,6 +1,6 @@
 <template>
   <v-card light class="elevation-4">
-    <v-form v-on:submit.prevent="loginWithEmail">
+    <v-form v-on:submit.prevent="submitLogin">
       <v-card-text class="pa-7 pb-0">
         <v-alert v-if="error" dense outlined type="error">{{error}}</v-alert>
         <v-text-field

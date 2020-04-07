@@ -1,0 +1,36 @@
+@import '@/styles/breakpoints.scss';
+
+.v-card {
+  @include sm-up() {
+    max-width: 400px;
+  }
+}
+
+.social-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #999;
+  letter-spacing: 3px;
+
+  .v-icon {
+    cursor: pointer;
+    font-size: 55px;
+  }
+
+  .btn-facebook {
+    color: #3b5998;
+  }
+
+  .btn-google {
+    color: #ea4335;
+  }
+}
+
+.email-actions {
+  .v-btn {
+    height: 56px !important;
+    font-size: 1.2rem;
+  }
+}

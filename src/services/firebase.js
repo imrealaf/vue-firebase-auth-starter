@@ -13,3 +13,8 @@ if (!firebase.apps.length) {
 }
 
 export const auth = firebase.auth();
+export const db = firebase.firestore();
+
+// Collections
+export const profiles = db.collection('profiles');
+export const articles = db.collection('articles');

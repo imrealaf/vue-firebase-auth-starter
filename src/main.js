@@ -11,6 +11,7 @@ import { auth } from './services/firebase';
 
 import 'vuetify/dist/vuetify.min.css';
 import './styles/main.scss';
+import './filters';
 import './layouts';
 
 Vue.config.productionTip = false;
@@ -24,7 +25,7 @@ auth.onAuthStateChanged((user) => {
     }, LOADING_DELAY);
   }
 
-  store.dispatch('user/fetchUser', user);
+  store.dispatch('user/setUser', user);
 
   new Vue({
     router,
