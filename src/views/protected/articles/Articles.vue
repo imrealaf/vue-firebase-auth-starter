@@ -18,13 +18,14 @@
         ></v-text-field>
       </v-card-title>
       <v-data-table
+        :loading="loading"
         :headers="headers"
         :items="articles"
         :search="search"
         @click:row="onArticleClick"
       >
         <template v-slot:item.title="{ item }">
-          <span>{{ item.title }}</span>
+          <span class="d-block" :style="{cursor: 'pointer'}">{{ item.title }}</span>
         </template>
         <template v-slot:item.slug="{ item }">
           <span>{{ item.slug }}</span>
@@ -67,6 +68,12 @@ export default {
           value: 'slug'
         },
         {
+          text: 'Status',
+          align: 'start',
+          sortable: false,
+          value: 'isPublished'
+        },
+        {
           text: 'Date Created',
           align: 'start',
           sortable: true,
@@ -77,14 +84,9 @@ export default {
           align: 'start',
           sortable: true,
           value: 'dateUpdated'
-        },
-        {
-          text: 'Status',
-          align: 'start',
-          sortable: false,
-          value: 'isPublished'
         }
       ],
+      loading: true,
       articles: []
     };
   },
@@ -118,6 +120,7 @@ export default {
         this.articles = await this.getAllByUserId({
           userId: this.user.uid
         });
+        this.loading = false;
       } catch (error) {
         console.error(error);
       }
