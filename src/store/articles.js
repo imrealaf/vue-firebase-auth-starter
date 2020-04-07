@@ -50,7 +50,8 @@ const actions = {
     const { result, orderBy } = payload;
     let data = [];
     result.forEach((doc) => {
-      data.push(doc.data());
+      const { id } = doc;
+      data.push({ id, ...doc.data() });
     });
 
     if (orderBy) {

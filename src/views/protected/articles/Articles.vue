@@ -2,12 +2,12 @@
   <div>
     <div class="d-flex align-center justify-space-between mb-6">
       <h1>Articles</h1>
-      <v-btn class="btn-pill" color="primary" small>
+      <v-btn class="btn-pill" color="primary" @click="goToCreate" small>
         <v-icon small>mdi-plus</v-icon>Create Article
       </v-btn>
     </div>
     <v-card>
-      <v-card-title>
+      <v-card-title class="mb-3">
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -17,9 +17,17 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="articles" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="articles"
+        :search="search"
+        @click:row="onArticleClick"
+      >
         <template v-slot:item.title="{ item }">
           <span>{{ item.title }}</span>
+        </template>
+        <template v-slot:item.slug="{ item }">
+          <span>{{ item.slug }}</span>
         </template>
         <template v-slot:item.isPublished="{ item }">
           <span
@@ -53,6 +61,12 @@ export default {
         },
 
         {
+          text: 'Slug',
+          align: 'start',
+          sortable: true,
+          value: 'slug'
+        },
+        {
           text: 'Date Created',
           align: 'start',
           sortable: true,
@@ -83,6 +97,21 @@ export default {
     ...mapActions({
       getAllByUserId: 'articles/getAllByUserId'
     }),
+
+    goToCreate() {
+      this.$router.push({
+        name: 'admin-create-article'
+      });
+    },
+
+    onArticleClick(article) {
+      this.$router.push({
+        name: 'admin-edit-article',
+        params: {
+          id: article.id
+        }
+      });
+    },
 
     async getArticles() {
       try {
