@@ -8,14 +8,19 @@
       </v-btn>
     </div>
     <div class="keyline mt-3 mb-4" />
-    <ArticleForm mode="create" :user="user" :data="data" />
+    <ArticleForm mode="create" :user="user" :data="data" :class="{'is-invisible': loading}" />
+    <v-fade-transition>
+      <div v-show="loading" class="loading-box cover">
+        <v-progress-circular :size="50" color="grey ligthen-2" indeterminate></v-progress-circular>
+      </div>
+    </v-fade-transition>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
 import ArticleForm from '@/components/ArticleForm/ArticleForm.vue';
-import { goBack } from '@/utils';
+import { goBack, defer } from '@/utils';
 
 export default {
   components: {
@@ -23,6 +28,7 @@ export default {
   },
   data() {
     return {
+      data: {},
       loading: true
     };
   },
@@ -44,7 +50,11 @@ export default {
     }
   },
 
-  mounted() {}
+  mounted() {
+    defer(() => {
+      this.loading = false;
+    });
+  }
 };
 </script>
 

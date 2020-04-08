@@ -27,3 +27,13 @@ export const generateSlug = (text) => {
     strict: true // strip special characters except replacement, defaults to `false`
   });
 };
+
+/**
+ * defer
+ * @description simply delays an action from happening
+ * @param {Function} callback - the callback to execute
+ * @param {String} delay - the number in milliseconds to delay callback
+ */
+export const defer = (callback, delay = 300) => {
+  setTimeout(callback, delay);
+};

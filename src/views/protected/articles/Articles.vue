@@ -7,7 +7,7 @@
       </v-btn>
     </div>
     <div class="keyline mt-3 mb-6" />
-    <v-card>
+    <v-card :class="{'is-invisible': loading}">
       <v-card-title class="mb-3">
         <v-spacer></v-spacer>
         <v-text-field
@@ -46,6 +46,11 @@
         </template>
       </v-data-table>
     </v-card>
+    <v-fade-transition>
+      <div v-show="loading" class="loading-box cover">
+        <v-progress-circular :size="50" color="grey ligthen-2" indeterminate></v-progress-circular>
+      </div>
+    </v-fade-transition>
   </div>
 </template>
 

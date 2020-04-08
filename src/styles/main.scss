@@ -2,6 +2,7 @@
 @import 'breakpoints';
 @import 'buttons';
 @import 'editor';
+@import 'utilities';
 
 .loading {
   background: $primary-color;
@@ -13,22 +14,23 @@
   background: $primary-color;
 }
 
-.text-spaced--1 {
-  letter-spacing: 1px;
-}
+.loading-box {
+  background: $background-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
 
-.text-spaced--2 {
-  letter-spacing: 2px;
-}
+  div & {
+    position: relative;
+  }
 
-.text-spaced--3 {
-  letter-spacing: 3px;
-}
-
-.text-sm {
-  font-size: 0.8rem;
-}
-
-.line-height-1 {
-  line-height: 1;
+  &.cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
 }

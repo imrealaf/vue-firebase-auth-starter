@@ -2,7 +2,7 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import ClickOutside from 'vue-click-outside';
 
 import { APP_TITLE, LOGGED_OUT_ROUTE } from '@/constants';
-import { PATH_ADMIN_PROFILE } from '@/router/routes';
+import { PATH_ADMIN_ACCOUNT, PATH_ADMIN_SETTINGS } from '@/router/routes';
 
 export default {
   /**
@@ -86,7 +86,11 @@ export default {
    * -------------------------------------------------------------------
    */
   data() {
-    return { isMobileMenu: this.isMobile(), profilePath: PATH_ADMIN_PROFILE };
+    return {
+      isMobileMenu: this.isMobile(),
+      accountPath: PATH_ADMIN_ACCOUNT,
+      settingsPath: PATH_ADMIN_SETTINGS
+    };
   },
 
   /**

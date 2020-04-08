@@ -57,12 +57,12 @@
           </template>
           <v-list class="py-0 seconday--font" color="primary" dense>
             <v-list-item-group color style="width:100%" class="py-2">
-              <v-list-item :to="profilePath" link class="py-1 px-5">
+              <v-list-item :to="accountPath" link class="py-1 px-5">
                 <v-list-item-icon class="mr-2">
                   <v-icon color="white">mdi-account-circle</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content class="font-weight-bold text-uppercase text-spaced--2">
-                  <v-list-item-title>My Profile</v-list-item-title>
+                  <v-list-item-title>My Account</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item :to="settingsPath" link class="py-1 px-5">

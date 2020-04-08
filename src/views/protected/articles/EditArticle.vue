@@ -7,7 +7,12 @@
       </v-btn>
     </div>
     <div class="keyline mt-3 mb-4" />
-    <ArticleForm v-show="!loading" mode="edit" :user="user" :data="data" />
+    <ArticleForm mode="edit" :user="user" :data="data" :class="{'is-invisible': loading}" />
+    <v-fade-transition>
+      <div v-show="loading" class="loading-box cover">
+        <v-progress-circular :size="50" color="grey ligthen-2" indeterminate></v-progress-circular>
+      </div>
+    </v-fade-transition>
   </div>
 </template>
 
@@ -47,7 +52,6 @@ export default {
       try {
         this.data = await this.getById(this.$route.params.id);
         this.loading = false;
-        console.log(this.data);
       } catch (error) {
         console.error(error);
       }

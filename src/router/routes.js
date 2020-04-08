@@ -1,7 +1,7 @@
 import { Login, Home } from '../views';
 import {
   Dashboard,
-  MyProfile,
+  ViewAccount,
   Articles,
   EditArticle,
   CreateArticle
@@ -10,14 +10,16 @@ import {
 /**
  *  Route paths
  */
-export const PATH_HOME = '/';
-export const PATH_LOGIN = '/login';
-export const PATH_DASHBOARD = '/u/dashboard';
-export const PATH_ADMIN_PROFILE = '/u/profile';
-export const PATH_ADMIN_ARTICLES = '/u/articles';
-export const PATH_ADMIN_ARTICLE_EDIT = '/u/articles/edit/:id';
-export const PATH_ADMIN_ARTICLE_CREATE = '/u/articles/create';
-export const PATH_ABOUT = '/about';
+export const PATH_HOME = `/`;
+export const PATH_ADMIN = `/u`;
+export const PATH_LOGIN = `/login`;
+export const PATH_ABOUT = `/about`;
+export const PATH_ADMIN_DASHBOARD = `${PATH_ADMIN}/dashboard`;
+export const PATH_ADMIN_SETTINGS = `${PATH_ADMIN}/settings`;
+export const PATH_ADMIN_ACCOUNT = `${PATH_ADMIN}/account`;
+export const PATH_ADMIN_ARTICLES = `${PATH_ADMIN}/articles`;
+export const PATH_ADMIN_ARTICLE_EDIT = `${PATH_ADMIN}/articles/edit/:id`;
+export const PATH_ADMIN_ARTICLE_CREATE = `${PATH_ADMIN}/articles/create`;
 
 /**
  *  Routes
@@ -43,7 +45,7 @@ export const routes = [
    * Protected
    *******************/
   {
-    path: PATH_DASHBOARD,
+    path: PATH_ADMIN_DASHBOARD,
     name: 'dashboard',
     component: Dashboard,
     meta: { layout: 'protected', requiresAuth: true }
@@ -51,9 +53,9 @@ export const routes = [
 
   /////////// Profile
   {
-    path: PATH_ADMIN_PROFILE,
-    name: 'admin-profile',
-    component: MyProfile,
+    path: PATH_ADMIN_ACCOUNT,
+    name: 'admin-account',
+    component: ViewAccount,
     meta: { layout: 'protected', requiresAuth: true }
   },
   /////////// Articles
@@ -74,5 +76,11 @@ export const routes = [
     name: 'admin-create-article',
     component: CreateArticle,
     meta: { layout: 'protected', requiresAuth: true }
+  },
+
+  /////////// Catch all
+  {
+    path: `${PATH_ADMIN}/*`,
+    redirect: PATH_ADMIN_DASHBOARD
   }
 ];

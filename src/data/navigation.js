@@ -1,10 +1,10 @@
-import { PATH_DASHBOARD, PATH_ADMIN_ARTICLES } from '@/router/routes';
+import { PATH_ADMIN_DASHBOARD, PATH_ADMIN_ARTICLES } from '@/router/routes';
 
 export const protectedNav = [
   {
     icon: 'mdi-apps',
     title: 'Dashboard',
-    to: PATH_DASHBOARD
+    to: PATH_ADMIN_DASHBOARD
   },
   {
     icon: 'mdi-newspaper',

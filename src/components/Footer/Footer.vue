@@ -1,6 +1,6 @@
 <template>
   <v-footer class="justify-center">
-    <span>&copy; My App {{ new Date().getFullYear() }}</span>
+    <span class="caption">&copy; Vue Firebase Auth {{ new Date().getFullYear() }}</span>
   </v-footer>
 </template>
 
