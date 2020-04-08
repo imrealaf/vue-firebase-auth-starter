@@ -1,9 +1,11 @@
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
 import { mapState } from 'vuex';
-import { generateSlug } from '@/utils';
 import moment from 'moment';
 
+import { generateSlug } from '@/utils';
+import Editor from '@tinymce/tinymce-vue';
+import config from '@/config/tiny';
 import { auth } from '@/services/firebase';
 
 export default {
@@ -13,6 +15,10 @@ export default {
    * -------------------------------------------------------------------
    */
   mixins: [validationMixin],
+
+  components: {
+    Editor
+  },
 
   /**
    * -------------------------------------------------------------------
@@ -28,7 +34,8 @@ export default {
         slug: '',
         dateCreated: moment().format('YYYY-MM-DD'),
         dateUpdated: null,
-        isPublished: false
+        isPublished: false,
+        content: ''
       })
     },
     mode: {
@@ -49,7 +56,8 @@ export default {
   data() {
     return {
       menu: false,
-      slugEdit: false
+      slugEdit: false,
+      editorConfig: config
     };
   },
 

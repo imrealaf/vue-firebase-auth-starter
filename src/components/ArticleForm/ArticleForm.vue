@@ -33,6 +33,15 @@
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col cols="12">
+              <Editor
+                api-key="vmalv2n85kqixdmq2ctnbz46a2eix597asx5vsn0j9zek76e"
+                :init="editorConfig"
+                v-model="data.content"
+              />
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
       <v-col sm="12" md="3">
