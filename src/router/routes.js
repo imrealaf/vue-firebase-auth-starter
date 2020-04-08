@@ -1,7 +1,7 @@
 import { Login, Home } from '../views';
 import {
   Dashboard,
-  About,
+  MyProfile,
   Articles,
   EditArticle,
   CreateArticle
@@ -13,6 +13,7 @@ import {
 export const PATH_HOME = '/';
 export const PATH_LOGIN = '/login';
 export const PATH_DASHBOARD = '/u/dashboard';
+export const PATH_ADMIN_PROFILE = '/u/profile';
 export const PATH_ADMIN_ARTICLES = '/u/articles';
 export const PATH_ADMIN_ARTICLE_EDIT = '/u/articles/edit/:id';
 export const PATH_ADMIN_ARTICLE_CREATE = '/u/articles/create';
@@ -48,6 +49,13 @@ export const routes = [
     meta: { layout: 'protected', requiresAuth: true }
   },
 
+  /////////// Profile
+  {
+    path: PATH_ADMIN_PROFILE,
+    name: 'admin-profile',
+    component: MyProfile,
+    meta: { layout: 'protected', requiresAuth: true }
+  },
   /////////// Articles
   {
     path: PATH_ADMIN_ARTICLES,

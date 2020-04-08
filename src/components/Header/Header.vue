@@ -11,11 +11,14 @@
     >
       <v-list v-if="navItems.length" class="pt-0">
         <v-list-item v-for="(item, i) in navItems" :key="i" :to="item.to" router exact>
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+          <v-list-item-action class="mr-4">
+            <v-icon color="black">{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title
+              class="font-weight-bold text-uppercase text-spaced--3 line-height-1 text-sm"
+              v-text="item.title"
+            />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -44,30 +47,39 @@
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" text class="text-capitalize body-2">
               <v-img
-                class="mr-3"
+                class="mr-2"
                 :src="user.photo || require('../../assets/images/default-profile.png')"
                 height="40"
                 width="40"
               />
-              {{user.displayName}}
-              <v-icon>mdi-menu-down</v-icon>
+              <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </template>
-          <v-list class="py-0 seconday--font" color="grey darken-3">
-            <v-list-item-group color style="width:100%">
-              <v-list-item to="/account" link>
-                <v-list-item-icon class="mr-3">
-                  <v-icon>mdi-account-circle</v-icon>
+          <v-list class="py-0 seconday--font" color="primary" dense>
+            <v-list-item-group color style="width:100%" class="py-2">
+              <v-list-item :to="profilePath" link class="py-1 px-5">
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="white">mdi-account-circle</v-icon>
                 </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>Account Details</v-list-item-title>
+                <v-list-item-content class="font-weight-bold text-uppercase text-spaced--2">
+                  <v-list-item-title>My Profile</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item @click="logout">
-                <v-list-item-icon class="mr-3">
-                  <v-icon>mdi-logout</v-icon>
+              <v-list-item :to="settingsPath" link class="py-1 px-5">
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="white">mdi-settings</v-icon>
                 </v-list-item-icon>
-                <v-list-item-content>
+                <v-list-item-content class="font-weight-bold text-uppercase text-spaced--2">
+                  <v-list-item-title>Settings</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item @click="logout" class="py-1 px-5">
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="black">mdi-logout</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content
+                  class="black--text font-weight-bold text-uppercase text-spaced--2"
+                >
                   <v-list-item-title>Log Out</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>

@@ -84,6 +84,7 @@ export default {
     onLoaded(interval) {
       setTimeout(() => {
         this.showProloader = false;
+        document.body.classList.remove('loading');
       }, LOADING_DELAY);
       clearInterval(interval);
     }
