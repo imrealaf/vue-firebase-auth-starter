@@ -6,6 +6,7 @@
       :clipped="clipped"
       :fixed="fixed"
       v-click-outside="onClickOutside"
+      color="primary"
       app
     >
       <v-list v-if="navItems.length" class="pt-0">
@@ -52,7 +53,7 @@
               <v-icon>mdi-menu-down</v-icon>
             </v-btn>
           </template>
-          <v-list class="py-0 seconday--font profile-menu">
+          <v-list class="py-0 seconday--font" color="grey darken-3">
             <v-list-item-group color style="width:100%">
               <v-list-item to="/account" link>
                 <v-list-item-icon class="mr-3">

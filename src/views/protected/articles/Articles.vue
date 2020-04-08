@@ -1,15 +1,18 @@
 <template>
   <div>
-    <div class="d-flex align-center justify-space-between mb-6">
-      <h1>Articles</h1>
-      <v-btn class="btn-pill" color="primary" @click="goToCreate" small>
-        <v-icon small>mdi-plus</v-icon>Create Article
+    <div class="d-flex align-center justify-space-between">
+      <h1 class="display-1">Articles</h1>
+      <v-btn class="mt-2 px-6" rounded color="primary" height="40" @click="goToCreate">
+        <v-icon small class="mr-1">mdi-plus</v-icon>Create
       </v-btn>
     </div>
+    <div class="keyline mt-3 mb-6" />
     <v-card>
       <v-card-title class="mb-3">
         <v-spacer></v-spacer>
         <v-text-field
+          class="title"
+          height="40"
           v-model="search"
           append-icon="mdi-magnify"
           label="Search articles ..."

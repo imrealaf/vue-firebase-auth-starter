@@ -11,7 +11,7 @@ import modules from './modules';
 const persistConfig = {
   key: STORAGE_KEY_NAME,
   storage: window.sessionStorage,
-  modules: ['menu', 'user']
+  modules: ['menu']
 };
 
 /**

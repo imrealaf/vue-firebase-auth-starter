@@ -13,11 +13,14 @@
     "firebase": "^7.13.2",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "slugify": "^1.4.0",
+    "stylus": "^0.54.7",
     "vue": "^2.6.11",
     "vue-click-outside": "^1.0.7",
     "vue-router": "^3.1.5",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.20",
+    "vuetify-datetime-picker": "^2.1.1",
     "vuex": "^3.1.2",
     "vuex-persist": "^2.2.0",
     "vuexfire": "^3.2.2"
@@ -41,6 +44,7 @@
     "prettier": "^1.19.1",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
+    "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.4.3"
   }

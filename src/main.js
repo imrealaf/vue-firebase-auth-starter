@@ -10,8 +10,10 @@ import store from './store';
 import { auth } from './services/firebase';
 
 import 'vuetify/dist/vuetify.min.css';
+import 'vuetify-datetime-picker/src/stylus/main.styl';
 import './styles/main.scss';
 import './filters';
+import './plugins';
 import './layouts';
 
 Vue.config.productionTip = false;
@@ -19,14 +21,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuetify);
 
 auth.onAuthStateChanged((user) => {
-  if (!store.state.loaded) {
-    setTimeout(() => {
-      store.dispatch('onAppLoad');
-    }, LOADING_DELAY);
-  }
-
   store.dispatch('user/setUser', user);
-
   new Vue({
     router,
     store,

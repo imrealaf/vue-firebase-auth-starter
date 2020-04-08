@@ -14,7 +14,7 @@ export const PATH_HOME = '/';
 export const PATH_LOGIN = '/login';
 export const PATH_DASHBOARD = '/u/dashboard';
 export const PATH_ADMIN_ARTICLES = '/u/articles';
-export const PATH_ADMIN_ARTICLE_EDIT = '/u/articles/:id';
+export const PATH_ADMIN_ARTICLE_EDIT = '/u/articles/edit/:id';
 export const PATH_ADMIN_ARTICLE_CREATE = '/u/articles/create';
 export const PATH_ABOUT = '/about';
 

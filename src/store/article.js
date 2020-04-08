@@ -44,11 +44,15 @@ const mutations = {
 const actions = {
   async getById({ commit }, id) {
     try {
+      console.log('id', id);
       let doc = await articles.doc(id).get();
       if (doc.exists) {
-        commit('SET_ARTICLE', doc.data());
+        const data = doc.data();
+        commit('SET_ARTICLE', data);
+        return data;
       } else {
         commit('SET_NOT_FOUND');
+        return null;
       }
     } catch (error) {
       console.log('Error getting documents: ', error);

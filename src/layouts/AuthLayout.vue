@@ -1,5 +1,5 @@
 <template>
-  <v-app dark v-show="loaded" :style="{background: bg}">
+  <v-app dark :style="{background: bg}">
     <v-content>
       <router-view></router-view>
     </v-content>

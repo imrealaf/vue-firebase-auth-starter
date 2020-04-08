@@ -1,3 +1,13 @@
 @import 'variables';
 @import 'breakpoints';
 @import 'buttons';
+
+.loading {
+  background: $primary-color;
+}
+
+.keyline {
+  width: 40px;
+  height: 2px;
+  background: $primary-color;
+}

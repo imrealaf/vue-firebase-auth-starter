@@ -1,5 +1,5 @@
 <template>
-  <v-app dark v-show="loaded">
+  <v-app dark>
     <v-content>
       <router-view></router-view>
     </v-content>

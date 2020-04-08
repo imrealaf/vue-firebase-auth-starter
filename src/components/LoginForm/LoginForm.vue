@@ -37,7 +37,7 @@
         </v-flex>
       </v-card-actions>
       <v-card-actions v-show="email.length" class="email-actions pa-7 pt-0 justify-center">
-        <v-btn type="submit" color="accent" class="btn-pill px-7">Login</v-btn>
+        <v-btn type="submit" color="black" rounded class="px-7 white--text">Login</v-btn>
       </v-card-actions>
     </v-form>
   </v-card>
