@@ -1,27 +1,38 @@
-$border-grey: hsla(0, 0%, 100%, 0.7);
+$border-grey: #000;
 
 .tox {
   border: 1px solid $border-grey !important;
 
-  .tox-edit-area__iframe,
   .tox-toolbar-overlord,
   .tox-toolbar__primary {
-    background: transparent !important;
+    background: #111 !important;
+  }
+
+  .tox-toolbar__group:not(:last-of-type) {
+    border-color: $border-grey !important;
+  }
+
+  .tox-edit-area__iframe {
+    background: #282828 !important;
   }
 
   .tox-statusbar {
     display: none !important;
   }
 
-  .tox-tbtn svg {
-    fill: $border-grey !important;
-  }
-
   .tox-tbtn {
     color: white !important;
 
+    svg {
+      fill: #555 !important;
+    }
+
     &:hover {
-      background: $primary-color !important;
+      background: black !important;
+
+      svg {
+        fill: white !important;
+      }
     }
   }
 

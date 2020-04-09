@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex align-center justify-space-between">
       <h1 class="display-1">Articles</h1>
-      <v-btn class="mt-2 px-6" rounded color="primary" height="40" @click="goToCreate">
+      <v-btn class="mt-2 px-6" rounded color="primary" height="40" outlined @click="goToCreate">
         <v-icon small class="mr-1">mdi-plus</v-icon>Create
       </v-btn>
     </div>
@@ -48,7 +48,7 @@
     </v-card>
     <v-fade-transition>
       <div v-show="loading" class="loading-box cover">
-        <v-progress-circular :size="50" color="grey ligthen-2" indeterminate></v-progress-circular>
+        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
       </div>
     </v-fade-transition>
   </div>

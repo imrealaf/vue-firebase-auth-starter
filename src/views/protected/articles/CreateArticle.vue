@@ -8,10 +8,16 @@
       </v-btn>
     </div>
     <div class="keyline mt-3 mb-4" />
-    <ArticleForm mode="create" :user="user" :data="data" :class="{'is-invisible': loading}" />
+    <ArticleForm
+      mode="create"
+      :user="user"
+      :data="data"
+      :class="{'is-invisible': loading}"
+      :tempSave="saveArticle"
+    />
     <v-fade-transition>
       <div v-show="loading" class="loading-box cover">
-        <v-progress-circular :size="50" color="grey ligthen-2" indeterminate></v-progress-circular>
+        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
       </div>
     </v-fade-transition>
   </div>
@@ -36,13 +42,15 @@ export default {
   computed: {
     goBack,
     ...mapState({
-      user: (state) => state.user.data
+      user: (state) => state.user.data,
+      article: (state) => state.temp.article
     })
   },
 
   methods: {
     ...mapActions({
-      //getAllByUserId: 'articles/getById'
+      saveArticle: 'temp/saveTempArticle',
+      clearArticle: 'temp/clearTempArticle'
     }),
 
     isValid() {
@@ -51,9 +59,15 @@ export default {
   },
 
   mounted() {
+    this.data = this.article;
+
     defer(() => {
       this.loading = false;
     });
+
+    window.onpopstate = () => {
+      this.clearArticle();
+    };
   }
 };
 </script>

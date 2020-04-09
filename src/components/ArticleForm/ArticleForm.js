@@ -45,6 +45,9 @@ export default {
     },
     user: {
       type: Object
+    },
+    tempSave: {
+      type: Function
     }
   },
 
@@ -69,6 +72,11 @@ export default {
   methods: {
     slugify() {
       this.data.slug = generateSlug(this.data.title);
+    },
+    onBlur() {
+      if (this.mode === 'create' && this.tempSave) {
+        this.tempSave(this.data);
+      }
     }
   },
 

@@ -10,7 +10,7 @@
     <ArticleForm mode="edit" :user="user" :data="data" :class="{'is-invisible': loading}" />
     <v-fade-transition>
       <div v-show="loading" class="loading-box cover">
-        <v-progress-circular :size="50" color="grey ligthen-2" indeterminate></v-progress-circular>
+        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
       </div>
     </v-fade-transition>
   </div>

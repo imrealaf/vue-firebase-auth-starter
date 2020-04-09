@@ -20,6 +20,7 @@
                 maxlength="120"
                 label="Title"
                 @input="slugify"
+                @change="onBlur"
               ></v-text-field>
             </v-col>
             <v-col sm="12" md="4">
@@ -30,6 +31,7 @@
                 label="Slug"
                 :disabled="!slugEdit"
                 :readonly="!slugEdit"
+                @change="onBlur"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -39,6 +41,7 @@
                 api-key="vmalv2n85kqixdmq2ctnbz46a2eix597asx5vsn0j9zek76e"
                 :init="editorConfig"
                 v-model="data.content"
+                @change="onBlur"
               />
             </v-col>
           </v-row>
@@ -61,10 +64,11 @@
                 class="title"
                 v-model="data.dateCreated"
                 label="Published Date"
+                @change="onBlur"
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="data.dateCreated" no-title scrollable>
+            <v-date-picker v-model="data.dateCreated" no-title scrollable @change="onBlur">
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
               <v-btn text color="primary" @click="$refs.menu.save(data.dateCreated)">OK</v-btn>
@@ -73,6 +77,7 @@
           <v-switch
             v-model="data.isPublished"
             class="ma-2"
+            @change="onBlur"
             :label="data.isPublished ? 'Published' : 'Unpublished'"
           ></v-switch>
         </v-card>

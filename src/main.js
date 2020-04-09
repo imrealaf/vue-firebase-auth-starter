@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vuetify from 'vuetify/lib';
 
 import { LOADING_DELAY } from './constants';
 import vuetifyOptions from './config/vuetify';
@@ -9,8 +9,6 @@ import router from './router';
 import store from './store';
 import { auth } from './services/firebase';
 
-import 'vuetify/dist/vuetify.min.css';
-import 'vuetify-datetime-picker/src/stylus/main.styl';
 import './styles/main.scss';
 import './filters';
 import './plugins';

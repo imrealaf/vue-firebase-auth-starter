@@ -1,0 +1,29 @@
+.v-application {
+  background-color: var(--v-background-base) !important;
+}
+
+.v-navigation-drawer {
+  background-color: var(--v-drawer-base) !important;
+}
+
+.v-toolbar {
+  background-color: var(--v-toolbar-base) !important;
+}
+
+.v-menu__content .v-list {
+  background-color: var(--v-list-base) !important;
+}
+
+.v-card,
+.v-data-table {
+  background-color: var(--v-card-base) !important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before {
+  border-color: var(--v-input_border-base) !important;
+}
+
+.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.accent--text::before {
+  background-color: $primary-color !important;
+  opacity: 1;
+}

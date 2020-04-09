@@ -7,6 +7,7 @@ import { articles } from '@/services/firebase';
  */
 const state = () => ({
   data: null,
+  temp: {},
   notFound: false
 });
 
@@ -27,6 +28,16 @@ const mutations = {
   },
 
   /**
+   * SET_TEMP_ARTICLE
+   * @description sets the temporary article data
+   * @param {Object} state - the current state
+   * @param {Object} data - the data object
+   */
+  SET_TEMP(state, data) {
+    state.temp = data;
+  },
+
+  /**
    * SET_NOT_FOUND
    * @description sets the article data
    * @param {Object} state - the current state
@@ -42,6 +53,12 @@ const mutations = {
  * -------------------------------------------------------------------
  */
 const actions = {
+  saveTemp({ commit }, data) {
+    commit('SET_TEMP', data);
+  },
+  clearTemp({ commit }) {
+    commit('SET_TEMP', {});
+  },
   async getById({ commit }, id) {
     try {
       console.log('id', id);
