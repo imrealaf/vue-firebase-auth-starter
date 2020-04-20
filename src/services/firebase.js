@@ -12,8 +12,17 @@ if (!firebase.apps.length) {
   });
 }
 
+// Auth
 export const auth = firebase.auth();
+
+// Database
 export const db = firebase.firestore();
+
+// Providers
+export const facebook = new firebase.auth.FacebookAuthProvider().addScope(
+  'user_birthday'
+);
+export const google = new firebase.auth.GoogleAuthProvider();
 
 // Collections
 export const profiles = db.collection('profiles');

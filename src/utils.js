@@ -1,5 +1,7 @@
 import slugify from 'slugify';
-import { STORAGE_KEY_NAME } from './constants';
+import moment from 'moment';
+import firebase from 'firebase';
+import { STORAGE_KEY_NAME, DATE_FORMAT_SYSTEM } from './constants';
 
 export const getMenuData = () => {
   const data = sessionStorage.getItem('my_app_menu');
@@ -36,4 +38,24 @@ export const generateSlug = (text) => {
  */
 export const defer = (callback, delay = 300) => {
   setTimeout(callback, delay);
+};
+
+export const transformData = (data) => {
+  for (const key in data) {
+    const value = data[key];
+
+    if (
+      value &&
+      key.toLowerCase().includes('date') &&
+      typeof value === 'string'
+    ) {
+      data[key] = firebase.firestore.Timestamp.fromDate(new Date(value));
+    }
+
+    if (value && value instanceof firebase.firestore.Timestamp) {
+      data[key] = moment(value.toDate()).format(DATE_FORMAT_SYSTEM);
+    }
+  }
+
+  return data;
 };

@@ -78,7 +78,7 @@ export default {
         {
           text: 'Status',
           align: 'start',
-          sortable: false,
+          sortable: true,
           value: 'isPublished'
         },
         {

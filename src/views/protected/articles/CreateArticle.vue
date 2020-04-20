@@ -10,7 +10,7 @@
     <div class="keyline mt-3 mb-4" />
     <ArticleForm
       mode="create"
-      :user="user"
+      :userId="user.uid"
       :data="data"
       :class="{'is-invisible': loading}"
       :tempSave="saveArticle"
@@ -40,7 +40,6 @@ export default {
   },
 
   computed: {
-    goBack,
     ...mapState({
       user: (state) => state.user.data,
       article: (state) => state.temp.article
@@ -48,6 +47,7 @@ export default {
   },
 
   methods: {
+    goBack,
     ...mapActions({
       saveArticle: 'temp/saveTempArticle',
       clearArticle: 'temp/clearTempArticle'
@@ -60,6 +60,7 @@ export default {
 
   mounted() {
     this.data = this.article;
+    this.data.userId = this.user.uid;
 
     defer(() => {
       this.loading = false;

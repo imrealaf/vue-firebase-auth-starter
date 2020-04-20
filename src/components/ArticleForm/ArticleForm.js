@@ -1,12 +1,12 @@
 import { validationMixin } from 'vuelidate';
-import { required, email } from 'vuelidate/lib/validators';
-import { mapState } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex';
 import moment from 'moment';
 
 import { generateSlug } from '@/utils';
+import { DATE_FORMAT_SYSTEM } from '@/constants';
 import Editor from '@tinymce/tinymce-vue';
 import config from '@/config/tiny';
-import { auth } from '@/services/firebase';
 
 export default {
   /**
@@ -30,12 +30,15 @@ export default {
       required: true,
       type: Object,
       default: () => ({
+        userId: '',
         title: '',
         slug: '',
-        dateCreated: moment().format('YYYY-MM-DD'),
+        dateCreated: moment().format(DATE_FORMAT_SYSTEM),
         dateUpdated: null,
         isPublished: false,
-        content: ''
+        summary: '',
+        content: '',
+        photo: null
       })
     },
     mode: {
@@ -43,11 +46,17 @@ export default {
       type: String,
       default: 'create'
     },
-    user: {
-      type: Object
+    id: {
+      type: String
     },
-    tempSave: {
-      type: Function
+    userId: {
+      type: String
+    }
+  },
+
+  mounted() {
+    if (this.userId) {
+      this.data.userId = this.userId;
     }
   },
 
@@ -58,8 +67,11 @@ export default {
    */
   data() {
     return {
+      pending: false,
       menu: false,
-      slugEdit: false,
+      maxTitleLength: 120,
+      maxSlugLength: 50,
+      isEditSlug: false,
       editorConfig: config
     };
   },
@@ -70,12 +82,72 @@ export default {
    * -------------------------------------------------------------------
    */
   methods: {
-    slugify() {
-      this.data.slug = generateSlug(this.data.title);
+    ...mapActions({
+      saveTemp: 'temp/saveTempArticle',
+      clearTemp: 'temp/clearTempArticle',
+      create: 'article/create',
+      update: 'article/update',
+      delete: 'article/delete'
+    }),
+
+    slugify(slug) {
+      const content = this.isEditSlug ? slug : this.data.title;
+      if (slug && slug.length > this.maxSlugLength) {
+        this.data.slug = generateSlug(content).substring(0, this.maxSlugLength);
+      } else {
+        this.data.slug = generateSlug(content);
+      }
     },
-    onBlur() {
-      if (this.mode === 'create' && this.tempSave) {
-        this.tempSave(this.data);
+
+    onDataChanged() {
+      if (this.mode === 'create' && this.saveTemp) {
+        this.saveTemp(this.data);
+      }
+    },
+
+    toggleEditSlug() {
+      this.isEditSlug = !this.isEditSlug;
+    },
+
+    submit() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        this.pending = true;
+        this.mode === 'create' ? this.createArticle() : this.updateArticle();
+      }
+    },
+
+    async createArticle() {
+      try {
+        let article = await this.create(this.data);
+        this.pending = false;
+        this.clearTemp();
+        this.$router.push({
+          name: 'admin-articles'
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async updateArticle() {
+      try {
+        let article = await this.update({
+          id: this.id,
+          data: this.data
+        });
+        console.log(article);
+        this.pending = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async deleteArticle() {
+      try {
+        await this.delete(this.id);
+      } catch (error) {
+        console.log(error);
       }
     }
   },
@@ -94,7 +166,15 @@ export default {
       }
     },
     url() {
-      return this.data.slug ? `/articles/${this.data.slug}` : null;
+      return this.data.title ? `/articles/${this.data.slug}` : null;
+    },
+    slug: {
+      get() {
+        return this.data.slug;
+      },
+      set(newSlug) {
+        return newSlug;
+      }
     }
   },
 
@@ -104,12 +184,16 @@ export default {
    * -------------------------------------------------------------------
    */
   validations: {
-    email: {
-      required,
-      email
-    },
-    password: {
-      required
+    data: {
+      title: {
+        required
+      },
+      slug: {
+        required
+      },
+      summary: {
+        required
+      }
     }
   }
 };

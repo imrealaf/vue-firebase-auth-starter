@@ -1,5 +1,5 @@
 <template>
-  <v-form novalidate>
+  <v-form novalidate @submit.prevent="submit">
     <v-row>
       <v-col class="py-0" cols="12" v-show="url">
         <span class="grey--text caption">
@@ -15,24 +15,44 @@
                 height="40"
                 type="text"
                 class="title"
-                counter="120"
+                :counter="maxTitleLength"
                 v-model="data.title"
-                maxlength="120"
+                :maxlength="maxTitleLength"
                 label="Title"
                 @input="slugify"
-                @change="onBlur"
+                @blur="onDataChanged"
+                @change="onDataChanged"
               ></v-text-field>
             </v-col>
-            <v-col sm="12" md="4">
+            <v-col sm="12" md="4" class="pos-relative">
+              <button type="button" class="slug-edit" @click.prevent="toggleEditSlug">
+                <v-icon v-if="!isEditSlug" small>mdi-pencil</v-icon>
+                <v-icon v-else small>mdi-close</v-icon>
+              </button>
               <v-text-field
                 height="40"
                 class
                 v-model="data.slug"
                 label="Slug"
-                :disabled="!slugEdit"
-                :readonly="!slugEdit"
-                @change="onBlur"
+                :maxlength="maxSlugLength"
+                :counter="maxSlugLength"
+                @input="slugify"
+                :disabled="!isEditSlug"
+                :readonly="!isEditSlug"
+                @change="onDataChanged"
               ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row class="mt-3">
+            <v-col cols="12">
+              <v-textarea
+                no-resize
+                v-model="data.summary"
+                label="Summary"
+                @blur="onDataChanged"
+                @change="onDataChanged"
+                rows="2"
+              ></v-textarea>
             </v-col>
           </v-row>
           <v-row>
@@ -41,7 +61,8 @@
                 api-key="vmalv2n85kqixdmq2ctnbz46a2eix597asx5vsn0j9zek76e"
                 :init="editorConfig"
                 v-model="data.content"
-                @change="onBlur"
+                @onChange="onDataChanged"
+                @onBlur="onDataChanged"
               />
             </v-col>
           </v-row>
@@ -64,11 +85,11 @@
                 class="title"
                 v-model="data.dateCreated"
                 label="Published Date"
-                @change="onBlur"
+                @change="onDataChanged"
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="data.dateCreated" no-title scrollable @change="onBlur">
+            <v-date-picker v-model="data.dateCreated" no-title scrollable @change="onDataChanged">
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
               <v-btn text color="primary" @click="$refs.menu.save(data.dateCreated)">OK</v-btn>
@@ -77,11 +98,11 @@
           <v-switch
             v-model="data.isPublished"
             class="ma-2"
-            @change="onBlur"
+            @change="onDataChanged"
             :label="data.isPublished ? 'Published' : 'Unpublished'"
           ></v-switch>
         </v-card>
-        <v-flex class="text-center mt-8">
+        <div class="actions mt-8">
           <v-btn
             v-show="mode === 'edit'"
             height="50"
@@ -93,20 +114,22 @@
           >
             <v-icon class="mr-2">mdi-delete</v-icon>Delete
           </v-btn>
-          <v-btn
-            v-show="showSubmit"
-            type="submit"
-            height="60"
-            rounded
-            class="px-10"
-            color="primary"
-            x-large
-          >
-            <v-icon v-if="mode === 'edit'" class="mr-2">mdi-check</v-icon>
-            <v-icon v-else class="mr-2">mdi-plus</v-icon>
-            {{mode === 'edit' ? 'Save' : 'Create'}}
-          </v-btn>
-        </v-flex>
+          <v-fade-transition>
+            <v-btn
+              v-show="!$v.$invalid"
+              type="submit"
+              height="60"
+              rounded
+              class="px-10"
+              color="primary"
+              x-large
+            >
+              <v-icon v-if="mode === 'edit'" class="mr-2">mdi-check</v-icon>
+              <v-icon v-else class="mr-2">mdi-plus</v-icon>
+              {{mode === 'edit' ? 'Save' : 'Create'}}
+            </v-btn>
+          </v-fade-transition>
+        </div>
       </v-col>
     </v-row>
   </v-form>

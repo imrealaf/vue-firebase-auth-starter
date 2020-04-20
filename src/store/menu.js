@@ -41,20 +41,36 @@ const mutations = {
  * -------------------------------------------------------------------
  */
 const actions = {
+  setMenuClasses({ state }) {
+    if (state.open) {
+      document.body.classList.add('menu-is-open');
+    } else {
+      document.body.classList.remove('menu-is-open');
+    }
+  },
+  setMiniMenuClasses({ state }) {
+    if (state.isMini) {
+      document.body.classList.add('menu-is-mini');
+    } else {
+      document.body.classList.remove('menu-is-mini');
+    }
+  },
   /**
    * toggleMenu
    * @description toggles the visibility state of the menu
    */
-  toggleMenu({ commit, state }) {
+  toggleMenu({ commit, dispatch, state }) {
     commit('SET_OPEN', !state.open);
+    dispatch('setMenuClasses');
   },
 
   /**
    * toggleMiniMenu
    * @description toggles the state of the menu being mini
    */
-  toggleMiniMenu({ commit, state }) {
+  toggleMiniMenu({ commit, dispatch, state }) {
     commit('SET_MINI', !state.isMini);
+    dispatch('setMiniMenuClasses');
   },
 
   setMenu({ commit }, data = {}) {

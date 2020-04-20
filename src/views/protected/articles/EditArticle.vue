@@ -7,7 +7,13 @@
       </v-btn>
     </div>
     <div class="keyline mt-3 mb-4" />
-    <ArticleForm mode="edit" :user="user" :data="data" :class="{'is-invisible': loading}" />
+    <ArticleForm
+      mode="edit"
+      :userId="user.uid"
+      :data="data"
+      :class="{'is-invisible': loading}"
+      :id="id"
+    />
     <v-fade-transition>
       <div v-show="loading" class="loading-box cover">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
@@ -19,7 +25,7 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import ArticleForm from '@/components/ArticleForm/ArticleForm.vue';
-import { goBack } from '@/utils';
+import { goBack, transformData } from '@/utils';
 
 export default {
   components: {
@@ -39,7 +45,10 @@ export default {
   computed: {
     ...mapState({
       user: (state) => state.user.data
-    })
+    }),
+    id() {
+      return this.$route.params.id;
+    }
   },
 
   methods: {
@@ -50,7 +59,8 @@ export default {
 
     async getArticle() {
       try {
-        this.data = await this.getById(this.$route.params.id);
+        const data = await this.getById(this.id);
+        this.data = transformData(data);
         this.loading = false;
       } catch (error) {
         console.error(error);

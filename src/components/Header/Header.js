@@ -158,6 +158,8 @@ export default {
    */
   methods: {
     ...mapActions({
+      setMenuClasses: 'menu/setMenuClasses',
+      setMiniMenuClasses: 'menu/setMiniMenuClasses',
       toggleMenu: 'menu/toggleMenu',
       toggleMiniMenu: 'menu/toggleMiniMenu',
       logout: 'user/logout',
@@ -199,6 +201,8 @@ export default {
    * -------------------------------------------------------------------
    */
   mounted() {
+    this.setMenuClasses();
+    this.setMiniMenuClasses();
     window.addEventListener('resize', () => {
       this.isMobileMenu = this.isMobile();
     });

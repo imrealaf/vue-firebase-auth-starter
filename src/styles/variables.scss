@@ -2,7 +2,7 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
-@import '~vuetify/src/styles/styles.sass';
+@import '~vuetify/src/styles/settings/_index.sass';
 
 $list-item-child-min-width: 20px;
 $primary-color: map-get($red, 'accent-3');

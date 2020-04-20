@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { auth, profiles } from '@/services/firebase';
+import { auth, profiles, facebook, google } from '@/services/firebase';
 
 function createProfile(user) {
   console.log(user);
@@ -85,25 +85,35 @@ const actions = {
       });
   },
 
-  userGoogleLogin({ commit }) {
+  async signUpWithFacebook({ dispatch }) {
+    return dispatch('signUpwithProvider', facebook);
+  },
+
+  async signUpWithGoogle({ dispatch }) {
+    return dispatch('signUpwithProvider', google);
+  },
+
+  async signUpwithProvider({ commit }, provider) {
     auth.useDeviceLanguage();
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    provider.setCustomParameters({
-      login_hint: 'user@example.com'
-    });
-    return auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        createProfile({
-          newImage: result.additionalUserInfo.profile.picture, // just use their existing user image to start
-          ...result.user
-        });
-        return commit('setUser', result.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      let result = await auth.signInWithPopup(provider);
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+    // return auth
+    //   .signInWithPopup(provider)
+    //   .then((result) => {
+    //     createProfile({
+    //       newImage: result.additionalUserInfo.profile.picture, // just use their existing user image to start
+    //       ...result.user
+    //     });
+    //     return commit('setUser', result.user);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   },
 
   async logout() {
