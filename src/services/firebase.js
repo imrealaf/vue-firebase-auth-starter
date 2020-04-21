@@ -19,9 +19,10 @@ export const auth = firebase.auth();
 export const db = firebase.firestore();
 
 // Providers
-export const facebook = new firebase.auth.FacebookAuthProvider().addScope(
-  'user_birthday'
-);
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+facebookProvider.addScope('user_birthday');
+facebookProvider.addScope('user_location');
+export const facebook = facebookProvider;
 export const google = new firebase.auth.GoogleAuthProvider();
 
 // Collections

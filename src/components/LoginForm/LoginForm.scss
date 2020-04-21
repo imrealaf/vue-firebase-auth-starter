@@ -1,6 +1,8 @@
 @import '@/styles/breakpoints.scss';
 
 .v-card {
+  background: white !important;
+
   @include sm-up() {
     max-width: 400px;
   }

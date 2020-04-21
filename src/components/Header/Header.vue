@@ -46,8 +46,8 @@
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" text class="text-capitalize body-2">
               <v-img
-                class="mr-2"
-                :src="user.photo || require('../../assets/images/default-profile.png')"
+                class="photo mr-2"
+                :src="user.photoURL || require('../../assets/images/default-profile.png')"
                 height="40"
                 width="40"
               />

@@ -1,8 +1,7 @@
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
-import { auth } from '@/services/firebase';
 import { LOGGED_IN_ROUTE } from '@/constants';
 
 export default {
@@ -32,11 +31,16 @@ export default {
    * -------------------------------------------------------------------
    */
   methods: {
+    ...mapActions({
+      signInWithEmail: 'user/signInWithEmail',
+      signInWithFacebook: 'user/signInWithFacebook'
+    }),
+
     /**
-     * loginWithEmail
+     * login
      * @description log user in by dispatching login action
      */
-    async loginWithEmail() {
+    async login() {
       this.$v.$touch();
 
       // If form is valid ..
@@ -45,13 +49,32 @@ export default {
 
         // Success ..
         try {
-          await auth.signInWithEmailAndPassword(this.email, this.password);
+          await this.signInWithEmail({
+            email: this.email,
+            password: this.password
+          });
 
           // Failed ..
         } catch (error) {
           console.log(error);
           this.error = error.message;
         }
+      }
+    },
+
+    /**
+     * loginWithFacebook
+     * @description log user in by dispatching login action
+     */
+    async loginWithProvider(provider) {
+      let signIn;
+      if (provider === 'facebook') signIn = this.signInWithFacebook;
+
+      try {
+        await signIn();
+      } catch (error) {
+        console.log(error);
+        this.error = error.message;
       }
     }
   },

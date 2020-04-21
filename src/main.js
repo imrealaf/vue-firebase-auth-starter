@@ -18,12 +18,23 @@ Vue.config.productionTip = false;
 
 Vue.use(Vuetify);
 
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged(async (user) => {
+  console.log(user);
+  if (user) {
+    let profile = await store.dispatch('user/getProfile', user.uid);
+    if (!profile) store.dispatch('user/createProfile', user);
+  }
+
   store.dispatch('user/setUser', user);
-  new Vue({
+
+  const app = new Vue({
     router,
     store,
     vuetify: new Vuetify(vuetifyOptions),
     render: (h) => h(App)
-  }).$mount('#app');
+  });
+
+  if (!app._isMounted) {
+    app.$mount('#app');
+  }
 });

@@ -1,21 +1,4 @@
-import firebase from 'firebase';
 import { auth, profiles, facebook, google } from '@/services/firebase';
-
-function createProfile(user) {
-  console.log(user);
-  return profiles.doc(user.email).set({
-    displayName: user.displayName || user.email.split('@')[0],
-    email: user.email,
-    image: null
-  });
-}
-
-function getProfile(user) {
-  const docRef = profiles.doc(user.email);
-  return docRef.get().then((doc) => {
-    return doc.data();
-  });
-}
 
 /**
  * -------------------------------------------------------------------
@@ -54,11 +37,10 @@ const mutations = {
  * -------------------------------------------------------------------
  */
 const actions = {
-  setUser({ commit, dispatch }, user) {
+  setUser({ commit }, user) {
     if (user) {
       commit('SET_LOGGED_IN', true);
       commit('SET_USER', user);
-      dispatch('getProfile', user.uid);
     } else {
       commit('SET_USER', null);
       commit('SET_LOGGED_IN', false);
@@ -66,54 +48,61 @@ const actions = {
     }
   },
 
-  async getProfile({ state, commit }, id) {
+  async getProfile({ commit }, id) {
     try {
       let profile = await profiles.doc(id).get();
       if (profile.exists) {
         commit('SET_PROFILE', profile.data());
+        return profile.data();
       }
     } catch (error) {
       console.log('Error getting documents: ', error);
+      return false;
     }
   },
 
-  createUser({ state }, account) {
-    return auth
-      .createUserWithEmailAndPassword(account.email, account.password)
-      .then(({ user }) => {
-        console.log(user);
-      });
+  async createProfile({ commit }, user) {
+    try {
+      const profileData = {
+        firstName: '',
+        lastName: '',
+        photo: user.photoURL
+      };
+      await profiles.doc(user.uid).set(profileData);
+      commit('SET_PROFILE', profileData);
+    } catch (error) {
+      console.log('Error getting documents: ', error);
+      return error;
+    }
   },
 
-  async signUpWithFacebook({ dispatch }) {
-    return dispatch('signUpwithProvider', facebook);
+  async signInWithEmail({ commit }, data) {
+    try {
+      let response = await auth.signInWithEmailAndPassword(
+        data.email,
+        data.password
+      );
+      return response;
+    } catch (error) {
+      return error;
+    }
   },
 
-  async signUpWithGoogle({ dispatch }) {
-    return dispatch('signUpwithProvider', google);
+  async signInWithFacebook({ dispatch }) {
+    return dispatch('signInWithProvider', facebook);
   },
 
-  async signUpwithProvider({ commit }, provider) {
+  async signInWithGoogle({ dispatch }) {
+    return dispatch('signInWithProvider', google);
+  },
+
+  async signInWithProvider({ commit }, provider) {
     auth.useDeviceLanguage();
     try {
-      let result = await auth.signInWithPopup(provider);
-      console.log(result);
-      return result;
+      await auth.signInWithPopup(provider);
     } catch (error) {
       console.log(error);
     }
-    // return auth
-    //   .signInWithPopup(provider)
-    //   .then((result) => {
-    //     createProfile({
-    //       newImage: result.additionalUserInfo.profile.picture, // just use their existing user image to start
-    //       ...result.user
-    //     });
-    //     return commit('setUser', result.user);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   },
 
   async logout() {
@@ -133,6 +122,14 @@ const actions = {
 const getters = {
   userData(state) {
     return { ...JSON.parse(JSON.stringify(state.data)), ...state.profile };
+  },
+  displayName(state) {
+    return state.data ? state.data.displayName : null;
+  },
+  fullName(state) {
+    return state.profile && state.profile.firstName
+      ? `${state.profile.firstName} ${state.profile.lastName}`
+      : null;
   }
 };
 

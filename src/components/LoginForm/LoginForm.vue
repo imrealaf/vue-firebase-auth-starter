@@ -1,6 +1,6 @@
 <template>
   <v-card light class="elevation-4">
-    <v-form v-on:submit.prevent="loginWithEmail">
+    <v-form v-on:submit.prevent="login">
       <v-card-text class="pa-7 pb-0">
         <v-alert v-if="error" dense outlined type="error">{{error}}</v-alert>
         <v-text-field
@@ -24,7 +24,11 @@
         <v-flex class="flex justify-center mt-3">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-icon class="btn-facebook" v-on="on">mdi-facebook</v-icon>
+              <v-icon
+                class="btn-facebook mr-3"
+                v-on="on"
+                @click="loginWithProvider('facebook')"
+              >mdi-facebook</v-icon>
             </template>
             <span>Facebook</span>
           </v-tooltip>

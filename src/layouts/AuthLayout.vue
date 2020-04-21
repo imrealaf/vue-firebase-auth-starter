@@ -1,5 +1,5 @@
 <template>
-  <v-app dark :style="{background: bg}">
+  <v-app light :style="{background: bg}">
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -20,7 +20,7 @@ export default {
   computed: {
     ...mapState(['loaded']),
     bg() {
-      return config.theme.themes.dark.primary;
+      return `${config.theme.themes.dark.primary} !important`;
     }
   }
 };
