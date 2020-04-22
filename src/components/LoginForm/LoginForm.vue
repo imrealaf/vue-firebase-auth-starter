@@ -3,20 +3,15 @@
     <v-form v-on:submit.prevent="login">
       <v-card-text class="pa-7 pb-0">
         <v-alert v-if="error" dense outlined type="error">{{error}}</v-alert>
-        <v-text-field
-          outlined
-          v-model="email"
-          label="E-mail"
-          :error-messages="emailRules"
-          @blur="email.length ? $v.email.$touch() : null"
-        ></v-text-field>
+        <v-text-field v-model="email" placeholder="Enter your email" @input="$v.email.$touch()"></v-text-field>
         <v-text-field
           v-show="email.length"
-          outlined
           v-model="password"
-          label="Password"
-          type="password"
-          :error-messages="passwordRules"
+          placeholder="Enter your password"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showPassword = !showPassword"
+          @input="$v.password.$touch()"
         ></v-text-field>
       </v-card-text>
       <v-card-actions v-show="!email.length" class="social-actions pa-7 pt-0">
@@ -40,8 +35,14 @@
           </v-tooltip>
         </v-flex>
       </v-card-actions>
-      <v-card-actions v-show="email.length" class="email-actions pa-7 pt-0 justify-center">
-        <v-btn type="submit" color="black" rounded class="px-7 white--text">Login</v-btn>
+      <v-card-actions v-show="email.length" class="email-actions mt-3 pa-7 pt-0 justify-center">
+        <v-btn
+          type="submit"
+          :disabled="$v.$invalid"
+          color="black"
+          rounded
+          class="px-7 white--text"
+        >Login</v-btn>
       </v-card-actions>
     </v-form>
   </v-card>

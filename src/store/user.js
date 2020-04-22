@@ -1,5 +1,10 @@
 import { auth, profiles, facebook, google } from '@/services/firebase';
 
+const defaultProfile = {
+  firstName: '',
+  lastName: ''
+};
+
 /**
  * -------------------------------------------------------------------
  *  State
@@ -61,31 +66,27 @@ const actions = {
     }
   },
 
-  async createProfile({ commit }, user) {
+  async createProfile({ commit }, id) {
     try {
-      const profileData = {
-        firstName: '',
-        lastName: '',
-        photo: user.photoURL
-      };
-      await profiles.doc(user.uid).set(profileData);
-      commit('SET_PROFILE', profileData);
+      await profiles.doc(id).set(defaultProfile);
+      commit('SET_PROFILE', defaultProfile);
     } catch (error) {
       console.log('Error getting documents: ', error);
       return error;
     }
   },
 
-  async signInWithEmail({ commit }, data) {
+  async updateProfile({ state, commit }, data) {
     try {
-      let response = await auth.signInWithEmailAndPassword(
-        data.email,
-        data.password
-      );
-      return response;
+      await profiles.doc(state.data.uid).set(data);
+      commit('SET_PROFILE', data);
     } catch (error) {
-      return error;
+      console.log('Error getting documents: ', error);
     }
+  },
+
+  async signInWithEmail({ commit }, data) {
+    return await auth.signInWithEmailAndPassword(data.email, data.password);
   },
 
   async signInWithFacebook({ dispatch }) {
@@ -98,19 +99,11 @@ const actions = {
 
   async signInWithProvider({ commit }, provider) {
     auth.useDeviceLanguage();
-    try {
-      await auth.signInWithPopup(provider);
-    } catch (error) {
-      console.log(error);
-    }
+    return await auth.signInWithPopup(provider);
   },
 
   async logout() {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.log(error);
-    }
+    return await auth.signOut();
   }
 };
 

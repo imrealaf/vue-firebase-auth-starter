@@ -22,7 +22,7 @@ auth.onAuthStateChanged(async (user) => {
   console.log(user);
   if (user) {
     let profile = await store.dispatch('user/getProfile', user.uid);
-    if (!profile) store.dispatch('user/createProfile', user);
+    if (!profile) store.dispatch('user/updateProfile', user.uid);
   }
 
   store.dispatch('user/setUser', user);
